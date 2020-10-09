@@ -8,26 +8,18 @@
   <!-- //li is the host element
         so ngFor as repeated directive, repeats li
         -> added a click binding: when li is clicked on, the onSelect(hero) method is executed
+        -> toggled class selector: when current hero is same as selectedHero it adds a selected style
      -->
-  <li *ngFor="let hero of heroes" (click)="onSelect(hero)">
+  <li *ngFor="let hero of heroes" (click)="onSelect(hero)" [class.selected]="hero === selectedHero">
     <span class="badge">{{hero.id}}</span> {{hero.name}}
   </li>
 </ul>
 
 
-<!-- // Hero Details (clicked one) -->
+<!-- // Attatching hero-detail component: using selector value => as its a child component
+    -> we are using the child component as a directive in the parent's template
+    -> binding the property 'hero' thats in the child to the parent's property: selectedHero 
 
-<!-- // hero.name is binded to HTML input element so data flows both ways -->
-
-<!-- // Hero details display only if if the selectedHero exists (aka is selected) 
-    Initially when a hero is not selected the ngIf REMOVES the hero detail elements from the DOM so there are no selectedHero bindings 
 -->
-<div *ngIf="selectedHero">
-  <h2>{{selectedHero.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{selectedHero.id}}</div>
-  <div>
-    <label>name:
-      <input [(ngModel)]="selectedHero.name" placeholder="name" />
-    </label>
-  </div>
-</div>
+
+<app-hero-detail [hero]="selectedHero"></app-hero-detail>

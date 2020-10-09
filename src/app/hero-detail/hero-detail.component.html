@@ -1,0 +1,19 @@
+<!-- // Hero Details (clicked one) -->
+
+<!-- // hero.name is binded to HTML input element so data flows both ways -->
+
+<!-- // Hero details display only if if the hero exists (aka is selected) 
+    Initially when a hero is not selected the ngIf REMOVES the hero detail elements from the DOM so there are no selectedHero bindings 
+    -> Selecting hero assigns the selectedHero property with a value and ngIf then puts the hero detail elements into DOM so it displays
+-->
+
+<!-- // This component template binds the component's hero property  -->
+<div *ngIf="hero">
+  <h2>{{hero.name | uppercase}} Details </h2>
+  <div><span>id: </span>{{hero.id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="hero.name" placeholder="name" />
+    </label>
+  </div>
+</div>
