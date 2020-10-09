@@ -3,13 +3,31 @@
 
 -->
 
-<h2>{{hero.name | uppercase}}</h2>
-<div>
-  <span>Id: </span> {{hero.id}}
-</div>
+<h2>My Heroes</h2>
+<ul class="heroes">
+  <!-- //li is the host element
+        so ngFor as repeated directive, repeats li
+        -> added a click binding: when li is clicked on, the onSelect(hero) method is executed
+     -->
+  <li *ngFor="let hero of heroes" (click)="onSelect(hero)">
+    <span class="badge">{{hero.id}}</span> {{hero.name}}
+  </li>
+</ul>
+
+
+<!-- // Hero Details (clicked one) -->
+
 <!-- // hero.name is binded to HTML input element so data flows both ways -->
-<div>
-  <label>name:
-    <input [(ngModel)]="hero.name" placeholder="name" />
-  </label>
+
+<!-- // Hero details display only if if the selectedHero exists (aka is selected) 
+    Initially when a hero is not selected the ngIf REMOVES the hero detail elements from the DOM so there are no selectedHero bindings 
+-->
+<div *ngIf="selectedHero">
+  <h2>{{selectedHero.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{selectedHero.id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="selectedHero.name" placeholder="name" />
+    </label>
+  </div>
 </div>
