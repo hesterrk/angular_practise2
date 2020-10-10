@@ -4,6 +4,22 @@
 -->
 
 <h2>My Heroes</h2>
+
+<!-- Adding a new Hero to the list of Heroes -->
+<div>
+  <label>Hero name:
+    <!-- heroName is a local variable which holds the value of the input element -->
+    <input #heroName />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(heroName.value); heroName.value=''">
+    add
+  </button>
+</div>
+
+
+
+
 <ul class="heroes">
   <!-- //li is the host element
         so ngFor as repeated directive, repeats li
@@ -19,6 +35,10 @@
     <a routerLink="/detail/{{hero.id}}">
       <span class="badge">{{hero.id}}</span> {{hero.name}}
     </a>
+
+    <button class="delete" title="delete hero" (click)="delete(hero)">x</button>
+
+
   </li>
 </ul>
 

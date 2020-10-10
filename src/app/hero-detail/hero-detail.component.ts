@@ -49,4 +49,12 @@ export class HeroDetailComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  // Method to save/persist the edited name changes to the server
+  // Once its saved, it automatically navigates back to the previous view
+  // updateHero method is defined in the HeroService
+  // If this updatedHero method resolves successfuly it returns an Observable (contains the response data back from server), so once this happens we can then call the goBack method
+  save(): void {
+    this.heroService.updateHero(this.hero).subscribe(() => this.goBack());
+  }
 }
