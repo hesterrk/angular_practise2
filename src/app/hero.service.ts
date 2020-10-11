@@ -118,6 +118,27 @@ export class HeroService {
     );
   }
 
+  // Method to search for a hero
+  // -> Will display HEROES whose name contains the search term
+
+  searchHeroes(term: string): Observable<Hero[]> {
+    // If no search term, returns empty array
+    if (!term.trim()) {
+      return of([]);
+    }
+    // else if search term entered: term.trim() is true
+    // query string used which contains the search term
+    return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
+      // x contains the array which if nothing matches is empty (no length) or if it has matched names then it will have a length
+      tap((x) =>
+        x.length
+          ? this.log(`found heroes matching "${term}"`)
+          : this.log(`no heroes matching "${term}"`)
+      ),
+      catchError(this.handleError<Hero[]>('searchHeroes', []))
+    );
+  }
+
   // handleError method definition: handle any HTTP operation that fails
   // -> Params: operation is name of the operation that failed; result is value to return as observable result: it has a '?' to show thats its optional(we dont always have to return a value)
   // the 'T' is declaring a type of function that can have multiple run-time type values BECAUSE: each service method returns a different kind of Observable value

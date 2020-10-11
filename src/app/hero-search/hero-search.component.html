@@ -1,0 +1,20 @@
+<div id="search-component">
+  <h4><label for="search-box">Hero Search</label></h4>
+
+  <!-- searchBox is the local variable that stores value of what user types in -->
+  <!-- Input event binding calls the component's search() method with the new search box value -->
+
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+
+  <ul class="search-result">
+    <!-- 
+        -> The async pipe makes angular subscribe to the observable (the heroes response Observable from server) and returns the latest value from it (current matched results, if any matches) 
+        -> The heroes with dollar sign (convention): heroes is an Observable so dollar sign signals that 
+    -->
+    <li *ngFor="let hero of heroes$ | async">
+      <a routerLink="/detail/{{hero.id}}">
+        {{hero.name}}
+      </a>
+    </li>
+  </ul>
+</div>
